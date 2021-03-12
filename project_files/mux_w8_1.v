@@ -29,6 +29,6 @@ module mux_proper(S,I0,I1,out);
 	assign out[5] = ~S;
 	assign out[6] = I1 & S;
 	assign out[7] = I0 & (~S);
-	assign out[8] = (I1 & S) | (I0 & (~S));
+	assign out[8] = 1;
 
 endmodule

@@ -23,12 +23,12 @@ module mux_proper(S,I0,I1,out);
 	output [8:0] out;
 	assign out[0] = I0;
 	assign out[1] = I1;
-	assign out[2] = S;
-	assign out[3] = S;
-	assign out[4] = S;
-	assign out[5] = ~S;
-	assign out[6] = I1 & S;
-	assign out[7] = I0 & (~S);
-	assign out[8] = (I1 & S) | (I0 & (~S));
+	assign out[2] = 0;
+	assign out[3] = 0;
+	assign out[4] = 0;
+	assign out[5] = ~0;
+	assign out[6] = I1 & 0;
+	assign out[7] = I0 & (~0);
+	assign out[8] = (I1 & 0) | (I0 & (~0));
 
 endmodule

@@ -32,10 +32,10 @@ module test_mux;
 	// Outputs
 	wire [8:0] out;
 	reg [8:0] W[8:0];
-	reg cur = 9'b111111111;
-	reg [8:0] golden = 9'b000000000;
+	reg [8:0] cur = 9'b111111111;
+	reg [8:0] golden = 9'b111111111;
 	integer index;
-	integer i;
+	integer i, j;
 
 	// Instantiate the Unit Under Test (UUT)
 	mux_proper uut (
@@ -47,27 +47,35 @@ module test_mux;
 	
 	// add checks
 	always @(I0, I1, S) begin
+		$display("I0 : %b    I1 : %b    S : %b", I0, I1, S);
+		$display("hello out : %b", out);
+		update_golden;
 		if (out != golden) begin
-			update_golden;
 			update_task;
 		end
 	end
 	
 	task display_task;
 		begin
-			$display("Errors could be at - %b", cur);
+			$display("Errors could be at wires - %b", cur);
 			$finish;
 		end
 	endtask
 	
 	task update_task;
 		begin
-			for (i=0; i<10; i=i+1) begin
+			index = -1;
+			$display("out : %b      golden : %b", out, golden);
+			for (i=0; i<9; i=i+1) begin
+				$display("out[i] : %b      golden[i] : %b", out[i], golden[i]);
 				if (out[i] != golden[i]) begin
+					$display("hello there");
 					index = i;
 				end
 			end
-			cur = cur & W[index];
+			if (index != -1) begin
+				cur = cur & W[index];
+			end
 		end
 	endtask
 	
@@ -78,10 +86,10 @@ module test_mux;
 		golden[2] = S;
 		golden[3] = S;
 		golden[4] = S;
-		golden[5] = ~golden[4];
-		golden[6] = golden[1] & golden[3];
-		golden[7] = golden[0] & golden[5];
-		golden[8] = golden[6] | golden[7];
+		golden[5] = ~S;
+		golden[6] = I1 & S;
+		golden[7] = I0 & ~S;
+		golden[8] = (I1 & S) | (I0 & ~S);
 	end
 	endtask
 
@@ -103,18 +111,17 @@ module test_mux;
 		// Wait 100 ns for global reset to finish
 		#10;
       
-		$monitor($time, ". Out : %b", out);
+		$monitor($time, ". Out : %b     Golden : %b", out, golden);
 
 		// Add stimulus here
-		#5 I0=0; I1=0; S=0;
-		#5 I0=0; I1=0; S=1;
-		#5 I0=0; I1=1; S=0;
-		#5 I0=0; I1=1; S=1;
-		#5 I0=1; I1=0; S=0;
-		#5 I0=1; I1=0; S=1;
-		#5 I0=1; I1=1; S=0;
-		#5 I0=1; I1=1; S=1;
-		display_task;
+		#5000 I0=0; I1=0; S=1;
+		#5000 I0=0; I1=1; S=0;
+		#5000 I0=0; I1=1; S=1;
+		#5000 I0=1; I1=0; S=0;
+		#5000 I0=1; I1=0; S=1;
+		#5000 I0=1; I1=1; S=0;
+		#5000 I0=1; I1=1; S=1;
+		#5000 display_task;
 	end
       
 endmodule
