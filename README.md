@@ -22,20 +22,21 @@
 ## Project Directory
 
 * As you can see below, the project directory has **2 subfolders**
-    * Modules and Reports
+    * Source Code
     * Simulation Screenshots
 * It also has the **project report** in both pdf and docx format.
 * Also, it has the **project archive** for one to open the project in xilinx.  
 ![Project Directory](https://user-images.githubusercontent.com/55295613/111946353-54457b80-8b01-11eb-95ff-99e237b4a0d9.png)
 
-* Inside the **Modules and Reports** folder, we have the following subfolders  
-  ![Modules and Reports](https://user-images.githubusercontent.com/55295613/111946862-5956fa80-8b02-11eb-9858-7a08c46cc1db.png)
+* Inside the **Source Code** folder, we have the following subfolders  
+  ![Source Code](https://user-images.githubusercontent.com/55295613/111946862-5956fa80-8b02-11eb-9858-7a08c46cc1db.png)
 * Inside each of the folders(except PROPER), we have 2 subfolders, representing the different stuck at fault for the particular wire.
-* Inside those folders, we have 4 files for each module : 
+* Inside those folders, we have 5 files for each module : 
   * Design Summary Timing Report (PDF)
   * Logic Diagram (PDF)    
   * Look-Up Table Diagram (PDF)
   * Power Report (.pwr)
+  * mux_wi_j (.v) - code to generate the faulty module with required fault
 
 * Inside the Simulation Screenshots folder, we have the following images :  
   ![Simulation Screenshots](https://user-images.githubusercontent.com/55295613/111947454-87890a00-8b03-11eb-8362-a7bcec87c1e7.png)
@@ -45,7 +46,7 @@
 <hr>
 
 ## Understanding the naming convention
-* **Modules and Reports**
+* **Source Code**
   * The folder W0 represents all the reports/modules pertaining to Wire - 0.
   * Nested inside, the folder W0_0 represents the module pertaining to the wire 0 with a stuck-at-0 fault.
 * **Simulation Screenshots**
